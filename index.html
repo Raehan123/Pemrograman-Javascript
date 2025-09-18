@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghitung Luas Bangunan</title>
+</head>
+<body>
+    <script>
+        // ==================== Luas Persegi Panjang ====================
+
+        document.write("<h2>Menghitung Luas Persegi Panjang</h2>");
+        document.write("Rumus: Luas = Panjang x Lebar <br>");
+
+        let p = 10;
+        let l = 5;
+        let luasPersegiPanjang = p * l;
+        document.write("<br> Panjang = " + p) + "<br>";
+        document.write("<br> Lebar = " + l + "<br>");
+        document.write("<br> Luas = " + `${p} x ${l} = ` + luasPersegiPanjang + "<hr>");
+
+        // ==================== Luas Bujur Sangkar ====================
+
+        document.write("<h2>Menghitung Luas Bujur Sangkar</h2>");
+        document.write("Rumus: Luas = Sisi x Sisi <br>");
+
+        let s = 10;
+        let luasBujurSangkar = s * s;
+        document.write("<br> Sisi = " + s) + "<br>";
+        document.write("<br> Luas = " + `${s} x ${s} = ` + luasBujurSangkar + "<hr>");
+        
+
+        // ==================== Luas Segitiga ====================
+
+        document.write("<h2>Menghitung Luas Segitiga</h2>");
+        document.write("Rumus: Luas = 1/2 x Alas x Tinggi <br>");
+
+        let a = 10;
+        let t = 5;
+        let luasSegitiga = 1/2 * a * t;
+        document.write("<br> Alas = " + a) + "<br>";
+        document.write("<br> Tinggi = " + t + "<br>");
+        document.write("<br> Luas = " + `1/2 x ${a} x ${t} = ` + luasSegitiga + "<hr>");
+    </script>
+</body>
+</html>
