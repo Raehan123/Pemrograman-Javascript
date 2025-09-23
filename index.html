@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem Manajemen Transportasi</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1,
+      h2 {
+        color: #333;
+        text-align: center;
+      }
+      form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 6px;
+        color: #444;
+      }
+       input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+     button {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+      ul {
+      max-width: 500px;
+      margin: 20px auto;
+      padding: 0;
+      list-style: none;
+    }
+
+    ul li {
+      background: #19b601;
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+      font-size: 15px;
+      color: #fbfbfb;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>Sistem Manajemen Transportasi</h1>
+
+    <h2>Tambah Penyewaan Kendaraan</h2>
+    <form id="formSewa">
+      <label>Nama Pelanggan:</label>
+      <input type="text" id="nama" required />
+
+      <label>Nomor Telepon:</label>
+      <input type="text" id="nomorTelepon" required />
+
+      <label>Pilih Kendaraan:</label>
+      <select id="jenisKendaraan">
+        <option value="Mobil">Mobil</option>
+        <option value="Motor">Motor</option>
+        <option value="Bus">Bus</option>
+      </select>
+
+      <button type="submit">Sewa Kendaraan</button>
+    </form>
+
+    <h2>Daftar Pelanggan yang Sedang Menyewa</h2>
+    <ul id="daftarPelanggan"></ul>
+
+
+    <script>
+    class Kendaraan {
+      constructor(nama, kapasitas) {
+        this.nama = nama;
+        this.kapasitas = kapasitas;
+      }
+      info() {
+        return `${this.nama} (Kapasitas: ${this.kapasitas} orang)`;
+      }
+    }
+
+    class Mobil extends Kendaraan {
+      constructor() { super("Mobil", 5); }
+    }
+    class Motor extends Kendaraan {
+      constructor() { super("Motor", 2); }
+    }
+    class Bus extends Kendaraan {
+      constructor() { super("Bus", 40); }
+    }
+
+    class Pelanggan {
+      constructor(nama, nomorTelepon, kendaraanDisewa) {
+        this.nama = nama;
+        this.nomorTelepon = nomorTelepon;
+        this.kendaraanDisewa = kendaraanDisewa;
+      }
+      infoPelanggan() {
+        return `${this.nama} (${this.nomorTelepon}) menyewa ${this.kendaraanDisewa.info()}`;
+      }
+    }
+
+    const daftarPelanggan = [];
+
+    function renderDaftarPelanggan() {
+      const list = document.getElementById("daftarPelanggan");
+      list.innerHTML = "";
+      daftarPelanggan.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = p.infoPelanggan();
+        list.appendChild(li);
+      });
+    }
+
+    document.getElementById("formSewa").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const nomorTelepon = document.getElementById("nomorTelepon").value;
+      const jenis = document.getElementById("jenisKendaraan").value;
+
+      let kendaraan;
+      if (jenis === "Mobil") kendaraan = new Mobil();
+      else if (jenis === "Motor") kendaraan = new Motor();
+      else if (jenis === "Bus") kendaraan = new Bus();
+
+      const pelangganBaru = new Pelanggan(nama, nomorTelepon, kendaraan);
+      daftarPelanggan.push(pelangganBaru);
+
+      renderDaftarPelanggan();
+      document.getElementById("formSewa").reset();
+    });
+  </script>
+  </body>
+</html>
