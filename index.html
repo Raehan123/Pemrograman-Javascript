@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mengembangkan Fitur Manajemen Produk</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #2980b9;
+    }
+
+    h3 {
+      margin-top: 30px;
+      color: #444;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    li {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+
+    .harga {
+      color: #27ae60;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Manajemen Produk Toko Online</h2>
+
+  <div class="btn-container">
+    <button id="btnTampil">Tampilkan Produk</button>
+    <button id="btnTambah">Tambah Produk</button>
+    <button id="btnHapus">Hapus Produk</button>
+  </div>
+
+  <h3>Daftar Produk</h3>
+  <ul id="produkList"></ul>
+
+  <script>
+    let produkList = [
+      { id: 1, nama: "Laptop", harga: 12000000 },
+      { id: 2, nama: "Smartphone", harga: 5000000 },
+      { id: 3, nama: "Headset", harga: 750000 },
+      { id: 4, nama: "Keyboard", harga: 450000 },
+      { id: 5, nama: "Monitor", harga: 2000000 },
+    ];
+
+    const eventHandler = {
+      tambah: (id, nama, harga) => tambahProduk(id, nama, harga),
+      hapus: (...id) => hapusProduk(...id), // Rest Parameter
+      tampil: () => tampilkanProduk()
+    };
+
+    function tambahProduk(id, nama, harga) {
+      const newProduk = { id, nama, harga };
+      produkList = [...produkList, newProduk]; // Spread operator
+      alert(`Produk ${nama} berhasil ditambahkan!`);
+    }
+
+    function hapusProduk(...ids) {
+      ids.forEach(id => {
+        produkList = produkList.filter(produk => produk.id !== id);
+        alert(`Produk dengan ID ${id} berhasil dihapus!`);
+      });
+    }
+
+    function tampilkanProduk() {
+      const listEl = document.getElementById("produkList");
+      listEl.innerHTML = ""; // reset isi
+      produkList.forEach(({ id, nama, harga }) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <strong>${nama}</strong><br>
+          ID: ${id} <br>
+          Harga: <span class="harga">Rp${harga.toLocaleString("id-ID")}</span>
+        `;
+        listEl.appendChild(li);
+      });
+    }
+
+    document.getElementById("btnTampil").addEventListener("click", eventHandler.tampil);
+    document.getElementById("btnTambah").addEventListener("click", () => {
+      eventHandler.tambah(6, "Tablet", 7000000);
+      tampilkanProduk();
+    });
+    document.getElementById("btnHapus").addEventListener("click", () => {
+      eventHandler.hapus(2, 4); // hapus beberapa produk sekaligus
+      tampilkanProduk();
+    });
+
+    tampilkanProduk();
+  </script>
+</body>
+</html>
