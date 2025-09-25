@@ -4,7 +4,7 @@ const index = () => {
   console.log("List Users:");
   users.map((user, i) => {
     console.log(
-      `${i + 1}. Nama: ${user.nama}, Umur: ${user.umur}, Alamat: ${user.alamat}, Email: ${user.email}`
+        `${i + 1}. Nama: ${user.nama}, Umur: ${user.umur}, Alamat: ${user.alamat.jalan}, ${user.alamat.kota}, Email: ${user.email}`
     );
   });
 };
